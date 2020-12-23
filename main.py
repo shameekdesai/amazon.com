@@ -1,20 +1,38 @@
 from bs4 import BeautifulSoup
 import requests
+import readandwrite
+
+class Scraper:
+    def __init__(self):
+        pass
+
+    def scraping(self,url):
+        page = requests.get(url).content
+        soup = BeautifulSoup(page,features="html.parser")
+        print(soup.title)
+        try:
+            price = soup.find(id='priceblock_ourprice', class_="a-size-medium a-color-price priceBlockBuyingPriceString").get_text().strip()
+
+        except:
+            price = ''
+        
+        print(price)
 
 
-def scraping(urll):
-    page = requests.get(urll).content
-    soup = BeautifulSoup(page,features="html.parser")
-    print(soup.title)
 
-    price=soup.find(id="priceblock_ourprice", class_="a-size-medium a-color-price priceBlockBuyingPriceString")
-    price_val = price.get_text()
-    print(price_val)
 
-url1='https://www.amazon.in/Kenstar-Little-Dx-12-Litre-Cooler/dp/B00ILEAER6/ref=sr_1_1?dchild=1&keywords=kenstar+little+cooler&qid=1608318980&sr=8-'
-url2='https://www.amazon.in/Symphony-Diet-12-Litre-Cooler/dp/B00IYD419Q/ref=pd_vtp_1?pd_rd_w=Aol9Z&pf_rd_p=ae892142-84f6-4198-a069-93775ca49eb0&pf_rd_r=AZFX0D07T0Q7JKTHBSN9&pd_rd_r=b0d40a94-090f-4589-bd8f-4c4032a99838&pd_rd_wg=4OYn9&pd_rd_i=B00IYD419Q&psc=1'
 
-scraping(url1)
-scraping(url2)
+if __name__ == "__main__":
+    scrap = Scraper()
+    '''
+    exe = readandwrite.Excel()  #creating instance of readandwrite Excel class for accessing urls
+    url = exe.readlink()
+    '''
+    url1 ='https://www.amazon.in/Voltas-JetMax-54L-Desert-Cooler/dp/B084GSF7CD'
+    url2 = 'https://www.amazon.in/Bajaj-PCF-25DLX-Cooler-White/dp/B01N6ZUGG6/ref=pd_sbs_79_4/257-8552006-8943651?_encoding=UTF8&pd_rd_i=B01N6ZUGG6&pd_rd_r=39ff52dc-625c-44fe-8c4f-c7084b51e7be&pd_rd_w=9dsw1&pd_rd_wg=syZI4&pf_rd_p=758bfbc8-a8f2-4456-bf65-ae5d502eac06&pf_rd_r=RQT1FGBFE6ZZTHAXAJYJ&psc=1&refRID=RQT1FGBFE6ZZTHAXAJYJ'
+    
+    scrap.scraping(url1)
+    scrap.scraping(url2)
+
 
 
